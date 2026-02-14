@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORO-CONNECT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-page" class="page active">
+        <div class="login-card">
+            <h1 class="brand-name">ORO-CONNECT</h1>
+            <p class="brand-slogan">Walitti hidhamiinsa hawaasummaa kee jalqabi.</p>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Maqaa kee">
+                <input type="email" id="user_email" placeholder="Email kee">
+                <input type="password" id="password" placeholder="Jecha icciitii">
+                <button onclick="handleLogin()" class="btn-main">Gali / Seeni</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-app" class="page">
+        <nav class="sidebar">
+            <div class="sidebar-header">ORO-CONNECT</div>
+            <div class="nav-links">
+                <div class="nav-item active" onclick="showView('home', this)">
+                    <i class="fas fa-home"></i> <span>SEENSA</span>
+                </div>
+                <div class="nav-item" onclick="showView('messages', this)">
+                    <i class="fas fa-comment"></i> <span>ERGAWWAN</span>
+                </div>
+                <div class="nav-item" onclick="showView('calls', this)">
+                    <i class="fas fa-phone"></i> <span>BILBILA</span>
+                </div>
+                <div class="nav-item" onclick="showView('notifications', this)">
+                    <i class="fas fa-bell"></i> <span>BEEKSISA</span>
+                </div>
+                <div class="nav-item" onclick="showView('users', this)">
+                    <i class="fas fa-user-friends"></i> <span>NAMOOTA</span>
+                </div>
+                <div class="nav-item" onclick="showView('settings', this)">
+                    <i class="fas fa-cog"></i> <span>SIRREESSA</span>
+                </div>
+            </div>
+            <div class="logout-section" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i> <span>Bahi</span>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-nav">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="ORO-CONNECT irratti Barbaadi...">
+                </div>
+                <div class="header-right">
+                    <button onclick="toggleDarkMode()" class="icon-btn"><i class="fas fa-adjust"></i></button>
+                    <div class="user-circle"><img class="current-user-img" src="https://via.placeholder.com/45"></div>
+                </div>
+            </header>
+
+            <section id="home" class="view active">
+                <div class="stories">
+                    <div class="story-box story-add">
+                        <i class="fas fa-plus-circle fa-2x"></i>
+                        <span>Add Story</span>
+                    </div>
+                    <div class="story-box" style="background-image:url('https://picsum.photos/200/300?1');"></div>
+                    <div class="story-box" style="background-image:url('https://picsum.photos/200/300?2');"></div>
+                    <div class="story-box" style="background-image:url('https://picsum.photos/200/300?3');"></div>
+                </div>
+
+                <div class="post-card">
+                    <div class="post-header-top">
+                        <div class="user-circle small"><img class="current-user-img" src=""></div>
+                        <textarea id="postText" placeholder="Maal yaadaa jirtu?"></textarea>
+                    </div>
+                    <div id="imgPreview" class="preview-container"></div>
+                    <div class="post-actions-bar">
+                        <div class="media-options">
+                            <button onclick="document.getElementById('postImg').click()" class="action-btn">
+                                <i class="fas fa-image"></i> Suuraa
+                            </button>
+                            <input type="file" id="postImg" hidden accept="image/*,video/*" onchange="previewFile()">
+                        </div>
+                        <button onclick="addNewPost()" class="btn-main post-btn">Maxxansi</button>
+                    </div>
+                </div>
+                <div id="feeds"></div>
+            </section>
+
+            <section id="messages" class="view">
+                <div class="messages-container">
+                    <div class="chat-sidebar">
+                        <div class="chat-sidebar-header">
+                            <h3>Ergawwan</h3>
+                            <div class="search-box small-search">
+                                <input type="text" placeholder="Nama barbaadi...">
+                            </div>
+                        </div>
+                        <div id="chatList" class="chat-user-list"></div>
+                    </div>
+                    <div class="chat-main">
+                        <div class="chat-header">
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <div class="user-circle small"><img id="activeChatImg" src=""></div>
+                                <div>
+                                    <b id="activeChatName">Hiriyyaa Filadhu</b>
+                                    <p id="userStatus" style="font-size: 0.7rem; color: #45bd62; margin: 0;">Online</p>
+                                </div>
+                            </div>
+                            <div class="chat-actions">
+                                <i class="fas fa-phone-alt"></i>
+                                <i class="fas fa-video"></i>
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                        </div>
+                        <div id="chatDisplay" class="chat-display"></div>
+                        <div id="chatFilePreview" style="display:none; padding:10px; background:#f9f9f9;"></div>
+                        <div class="chat-input-area">
+                            <button class="icon-btn" onclick="document.getElementById('chatFileInput').click()"><i class="fas fa-paperclip"></i></button>
+                            <input type="file" id="chatFileInput" hidden onchange="previewChatFile()">
+                            <input type="text" id="chatInput" placeholder="Ergaa barreessi...">
+                            <button onclick="sendChatMessage()" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="calls" class="view">
+                <div class="section-header"><h2>Bilbila (Calls)</h2></div>
+                <div id="call-list" class="call-list-container">
+                    <div class="call-card">
+                        <div class="call-info">
+                            <div class="user-circle"><img src="https://i.pravatar.cc/150?u=8"></div>
+                            <div><b>Caalaa Bultumee</b><p class="call-meta"><i class="fas fa-arrow-down-left"></i> Kuffifame • Kaleessa</p></div>
+                        </div>
+                        <div class="call-actions">
+                            <button class="btn-call"><i class="fas fa-phone"></i></button>
+                            <button class="btn-call"><i class="fas fa-video"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="notifications" class="view">
+                <div class="section-header">
+                    <h2>Beeksisa (Notifications)</h2>
+                    <button class="mark-read-btn" onclick="clearNotifications()">Hunda dubbisame taasisi</button>
+                </div>
+                <div id="notif-list" class="notif-container">
+                    <div class="notif-item unread">
+                        <div class="notif-avatar">
+                            <img src="https://i.pravatar.cc/150?u=1">
+                            <div class="notif-badge like"><i class="fas fa-heart"></i></div>
+                        </div>
+                        <div class="notif-content">
+                            <p><b>Obbo Alamaayyoo</b> suuraa kee jaalateera.</p>
+                            <span class="notif-time">Daqiiqaa 2 dura</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="users" class="view">
+                <h2>Namoota Beekamoo</h2>
+                <div id="user-list-box" class="container">
+                    </div>
+            </section>
+
+            <section id="settings" class="view">
+                <div class="settings-container">
+                    <h2><i class="fas fa-user-cog"></i> Sirreessa Profile fi Icciitii</h2>
+                    
+                    <div class="settings-card">
+                        <h3><i class="fas fa-id-card"></i> Odeeffannoo Dhuunfaa</h3>
+                        <div class="profile-upload-section">
+                            <div class="user-circle large"><img id="settings-profile-pic" class="current-user-img" src=""></div>
+                            <button class="btn-secondary" onclick="document.getElementById('profileInput').click()">Suuraa Jijjiiri</button>
+                            <input type="file" id="profileInput" hidden accept="image/*" onchange="updateProfilePic()">
+                        </div>
+                        <div class="input-grid">
+                            <div class="input-box"><label>Maqaa Guutuu</label><input type="text" id="set_full_name"></div>
+                            <div class="input-box"><label>Email</label><input type="email" id="set_email"></div>
+                            <div class="input-box"><label>Lakkoofsa Bilbilaa</label><input type="tel" id="set_phone"></div>
+                            <div class="input-box"><label>Bara Dhalootaa</label><input type="date" id="set_dob"></div>
+                            <div class="input-box"><label>Biyya itti Dhalatte</label><input type="text" id="set_country"></div>
+                            <div class="input-box"><label>National ID</label><input type="text" id="set_national_id"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3><i class="fas fa-graduation-cap"></i> Sadarkaa Barnootaa</h3>
+                        <select id="set_education">
+                            <option value="">Filadhu...</option>
+                            <option value="kutaa 8">Kutaa 8</option>
+                            <option value="kutaa 12">Kutaa 12</option>
+                            <option value="diploma">Diploma</option>
+                            <option value="degree">Degree</option>
+                            <option value="masters">Masters</option>
+                            <option value="phd">PhD</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3><i class="fas fa-lock"></i> Icciitii (Privacy)</h3>
+                        <div class="setting-item">
+                            <span>Eenyuutu Post kee arguu danda'a?</span>
+                            <select id="privacy_view">
+                                <option value="everyone">Nama hunda</option>
+                                <option value="followers">Hordoftoota qofa</option>
+                                <option value="private">Dhuunfaa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3><i class="fas fa-user-slash"></i> Namoota Block Ta'an</h3>
+                        <div class="block-search">
+                            <input type="text" id="block_user_name" placeholder="Nama block gochuu...">
+                            <button class="btn-main small-btn" onclick="blockUser()">Block</button>
+                        </div>
+                        <div id="blocked-list" class="mini-list"></div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3><i class="fas fa-language"></i> Afaan (Language)</h3>
+                        <select id="set_language" onchange="changeLanguage()">
+                            <option value="om">Afaan Oromoo</option>
+                            <option value="en">English</option>
+                            <option value="am">Amharic</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-main save-all-btn" onclick="saveAllSettings()">Hunda Mirkaneessi (Save All)</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="profileModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modalName"></h3>
+            <p id="modalBio"></p>
+            <button class="btn-main" onclick="closeModal()">Cufi</button>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

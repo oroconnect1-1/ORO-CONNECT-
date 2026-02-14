@@ -1,0 +1,204 @@
+/* --- 1. Global Styles & Variables --- */
+:root {
+    --aba-red: #ff0000;
+    --aba-black: #000000;
+    --aba-white: #ffffff;
+    --primary-gradient: linear-gradient(135deg, #000000 0%, #ff0000 100%);
+    --header-gradient: linear-gradient(90deg, #000000 0%, #cc0000 100%);
+    --bg-body: #f0f2f5;
+    --bg-card: #ffffff;
+    --text-main: #1c1e21;
+    --border-color: #dee2e6;
+    --radius-lg: 15px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --sidebar-width: 260px;
+}
+
+/* --- 2. Dark Mode Support --- */
+.dark-mode {
+    --bg-body: #0a0a0a;
+    --bg-card: #1a1a1a;
+    --text-main: #f5f5f5;
+    --border-color: #333333;
+    --shadow: 0 4px 25px rgba(255, 0, 0, 0.2);
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    margin: 0;
+    transition: 0.3s;
+}
+
+/* --- 3. Page & Layout --- */
+.page { display: none; min-height: 100vh; width: 100%; }
+.page.active { display: flex; }
+
+#login-page {
+    justify-content: center;
+    align-items: center;
+    background: var(--primary-gradient);
+}
+
+.login-card {
+    background: white;
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    text-align: center;
+    width: 380px;
+}
+
+/* --- 4. Sidebar Navigation --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--bg-card);
+    height: 100vh;
+    position: fixed;
+    border-right: 2px solid var(--aba-red);
+    padding: 20px;
+    z-index: 100;
+}
+
+.sidebar-header {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--aba-red);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.nav-links .nav-item {
+    padding: 15px;
+    margin: 8px 0;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    transition: 0.3s;
+    color: var(--text-main);
+}
+
+.nav-item:hover { background: rgba(255, 0, 0, 0.05); color: var(--aba-red); }
+.nav-item.active { background: var(--aba-red); color: white; box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3); }
+
+.logout-section {
+    position: absolute;
+    bottom: 30px;
+    width: 80%;
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--aba-red);
+    font-weight: bold;
+}
+
+/* --- 5. Main Content & Header --- */
+.main-content {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    padding: 25px;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--header-gradient);
+    padding: 12px 25px;
+    margin-bottom: 25px;
+    border-radius: var(--radius-sm);
+    color: white;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 15px;
+    border-radius: 25px;
+    width: 50%;
+}
+
+.search-box input { border: none; background: transparent; color: white; outline: none; width: 100%; margin-left: 10px; }
+
+/* --- 6. Post Cards & Stories --- */
+.view { display: none; width: 100%; max-width: 750px; margin: 0 auto; }
+.view.active { display: block; }
+
+.post-card, .card {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--aba-red);
+}
+
+.post-header-top { display: flex; gap: 12px; margin-bottom: 10px; }
+.post-header-top textarea { flex: 1; border: none; background: #f0f2f5; padding: 12px; border-radius: 10px; outline: none; }
+
+.preview-img { width: 100%; border-radius: 10px; display: none; margin-top: 10px; }
+
+.stories { display: flex; gap: 12px; margin-bottom: 25px; overflow-x: auto; padding-bottom: 10px; }
+.story-box { min-width: 110px; height: 180px; border-radius: 12px; background-size: cover; border: 2px solid var(--aba-red); transition: 0.3s; }
+
+/* --- 7. Messages & Chat --- */
+.messages-container { display: flex; height: 550px; background: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-color); }
+.chat-sidebar { width: 35%; border-right: 1px solid var(--border-color); overflow-y: auto; }
+.chat-main { width: 65%; display: flex; flex-direction: column; background: var(--bg-body); }
+.chat-display { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.chat-welcome { text-align: center; margin-top: 50px; opacity: 0.5; }
+
+.chat-input-area { padding: 15px; display: flex; gap: 10px; background: var(--bg-card); align-items: center; }
+.chat-input-area input { flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid var(--border-color); outline: none; }
+
+/* --- 8. User Cards (SECTION: USERS) --- */
+.user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    padding: 15px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    box-shadow: var(--shadow);
+}
+.user-info { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.user-info img { width: 50px; height: 50px; border-radius: 50%; }
+
+/* --- 9. Settings UI --- */
+.settings-container { padding: 10px; }
+.settings-card { background: var(--bg-card); padding: 20px; border-radius: var(--radius-lg); margin-bottom: 20px; box-shadow: var(--shadow); }
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+.mini-list { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px; }
+.save-all-btn { width: 100%; margin-top: 20px; padding: 15px; }
+
+/* --- 10. Buttons & Utility --- */
+.btn-main { background: var(--aba-red); color: white; border: none; padding: 12px 25px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+.btn-main:hover { background: var(--aba-black); }
+.btn-main.small-btn { padding: 5px 15px; border-radius: 5px; }
+
+.action-btn { border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--text-main); }
+.icon-btn { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: inherit; }
+
+.user-circle { width: 45px; height: 45px; background: #ddd; border-radius: 50%; overflow: hidden; }
+.user-circle.large { width: 100px; height: 100px; margin: 0 auto 15px; }
+.user-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Modals */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
+.modal-content { background: var(--bg-card); padding: 30px; border-radius: 20px; text-align: center; width: 350px; }
+
+@media (max-width: 768px) {
+    .sidebar { width: 70px; }
+    .sidebar span, .sidebar-header { display: none; }
+    .main-content { margin-left: 70px; width: calc(100% - 70px); }
+    .input-grid { grid-template-columns: 1fr; }
+}
